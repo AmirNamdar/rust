@@ -1,29 +1,19 @@
 fn main() {
-    // Initialization
-    // let a: i32; // Uninitialized but used, ERROR
-    // let _b: i32; // Uninitialized but unused, WARNING, we fix the warning by prefixing the var with "_"
-    
-    // assert_eq!(a, 5)
-
-    
-    // ----------------------------------------------------------------------
-
     // Mutability
     let mut x = 1;
     x += 2;
 
-    assert_eq!(x, 3);
-    println!("Success");
+    // shadowing
+    let y = 6;
+    let y = 7;
 
-
-    // ----------------------------------------------------------------------
+    // const
+    const TWO_HOURS_IN_SECONDS: u32 = 60 * 60 * 2;
 
     scope_example();
-
-    
 }
 
-
+// Scope of variable is defined by the block of code in which it is declared
 fn scope_example() {
     // let x = 10;
 
@@ -49,6 +39,24 @@ fn scope_example() {
     println!("The value of x is {} and the value of y is {}", x, y)
 }
 
-// Scope of variable is defined by the block of code in which it is declared
+fn shadowing_example() {
+    let x = 5;
 
-// Shadowing allows a variable to be redeclared in the same scope
+    let x = x + 1;
+
+    {
+        // shadowing is limited to the scope in which it is defined
+        let x = x * 2;
+        println!("The value of x in the inner scope is: {x}");
+    }
+
+    println!("The value of x is: {x}"); // X = 6
+
+    // shadowing difference from mutability
+    // it lets you change the type of a variable
+    let spaces = "   ";
+    let spaces = spaces.len();
+
+    // after redeclaring a variable, it is no longer mutable
+    // spaces = spaces.len(); // error
+}
